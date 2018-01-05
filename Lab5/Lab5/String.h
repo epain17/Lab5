@@ -6,6 +6,7 @@ class String
 public:
 	char* m_Buffer; 
 	int m_Size;
+	int m_Cap;
 	String();
 
 	String(const String& rhs);
@@ -18,7 +19,7 @@ public:
 
 	char& at(size_t i);
 
-	char& operator[](int i) const;
+	char& operator[](const int i) const;
 
 	const char* data() const;
 
