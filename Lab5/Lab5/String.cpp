@@ -8,9 +8,9 @@
 String::String() :
 	m_Buffer(""), m_Size(0), m_Cap(0)
 {
-	
-	
-	
+
+
+
 }
 
 
@@ -19,10 +19,10 @@ String::~String()
 	delete[] m_Buffer;
 }
 
-String::String(const char* cstr) 
+String::String(const char* cstr)
 {
 	m_Size = strlen(cstr);
-	m_Cap = m_Size * 2;
+	m_Cap = m_Size + 2;
 	m_Buffer = new char[m_Cap + 1];
 	memcpy(m_Buffer, cstr, m_Cap);
 	m_Buffer[m_Size] = 0;
@@ -54,7 +54,7 @@ String& String::operator=(const String& rhs)
 	{
 		delete[] m_Buffer;
 		m_Buffer = new char[rhs.m_Cap + 1];
-		memcpy(m_Buffer, rhs.m_Buffer, m_Size);
+		memcpy(m_Buffer, rhs.m_Buffer, m_Cap);
 		m_Size = rhs.m_Size;
 		m_Cap = rhs.m_Cap;
 		m_Buffer[m_Size] = 0;
@@ -71,13 +71,13 @@ String:: operator bool()
 	}
 
 	return true;
-	
-	
+
+
 }
 
 char& String::at(size_t i)
 {
-	if (i < 0 || i >= m_Cap )
+	if (i < 0 || i >= m_Cap)
 	{
 		std::cout << "Out of bounds" << std::endl;
 		exit(0);
@@ -89,13 +89,13 @@ char& String::at(size_t i)
 	}
 }
 
- char& String::operator[](const int i) const
+char& String::operator[](const int i) const
 {
 	return m_Buffer[i];
 }
 
 const char* String::data() const
-{	
+{
 	return m_Buffer;
 }
 
@@ -116,26 +116,52 @@ int String::capacity() const
 
 void String::shrink_to_fit()
 {
-
+	m_Cap = m_Size;
+	char* temp = new char[m_Cap + 1];
+	memcpy(temp, m_Buffer, m_Cap);
+	delete[] m_Buffer;
+	m_Buffer = new char[m_Cap + 1];
+	memcpy(m_Buffer, temp, m_Cap);
+	delete[] temp;
+	m_Buffer[m_Size] = 0;
 }
 
 void String::push_back(const char c)
 {
 	m_Size++;
+	if (m_Size > m_Cap)
+	{
+		m_Cap = m_Size + 2;
+		char* temp = new char[m_Cap + 1];
+		memcpy(temp, m_Buffer, m_Cap);
+		delete[] m_Buffer;
+		m_Buffer = new char[m_Cap + 1];
+		memcpy(m_Buffer, temp, m_Cap);
+		delete[] temp;
+
+	}
+
 	int pushPos = (m_Size - 1);
 	m_Buffer[pushPos] = c;
 	m_Buffer[m_Size] = 0;
-	if (m_Size > m_Cap)
-	{
-		m_Cap *= 2;
-	}
 
-	
+
 }
 
 void String::resize(size_t n)
 {
-
+	m_Size = n;
+	if (m_Size > m_Cap)
+	{
+		m_Cap = m_Size + 2;
+		char* temp = new char[m_Cap + 1];
+		memcpy(temp, m_Buffer, m_Cap);
+		delete[] m_Buffer;
+		m_Buffer = new char[m_Cap + 1];
+		memcpy(m_Buffer, temp, m_Cap);
+		delete[] temp;
+	}
+	m_Buffer[m_Size] = 0;
 }
 
 String& String::operator+=(const String& rhs)
