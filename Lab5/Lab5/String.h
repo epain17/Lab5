@@ -19,7 +19,9 @@ public:
 
 	char& at(size_t i);
 
-	char& operator[](const int i) const;
+	char operator[](int i) const;
+
+	char& operator[](int i);
 
 	const char* data() const;
 

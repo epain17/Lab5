@@ -6,13 +6,12 @@
 
 
 String::String() :
-	m_Buffer(""), m_Size(0), m_Cap(0)
+	m_Buffer(""), m_Size(0), m_Cap(10)
 {
 
 
 
 }
-
 
 String::~String()
 {
@@ -37,7 +36,6 @@ String::String(const String& rhs)//copy construct
 	memcpy(m_Buffer, rhs.m_Buffer, m_Cap + 1);
 	m_Buffer[m_Size] = 0;
 }
-
 
 String& String::operator=(const String& rhs)
 {
@@ -77,7 +75,7 @@ String:: operator bool()
 
 char& String::at(size_t i)
 {
-	if (i < 0 || i >= m_Cap)
+	if (i < 0 || i > m_Cap)
 	{
 		std::cout << "Out of bounds" << std::endl;
 		exit(0);
@@ -89,10 +87,16 @@ char& String::at(size_t i)
 	}
 }
 
-char& String::operator[](const int i) const
+char String::operator[](int i) const
 {
 	return m_Buffer[i];
 }
+
+char& String::operator[](int i)
+{
+	return m_Buffer[i];
+}
+
 
 const char* String::data() const
 {
@@ -141,10 +145,14 @@ void String::push_back(const char c)
 
 	}
 
-	int pushPos = (m_Size - 1);
-	m_Buffer[pushPos] = c;
-	m_Buffer[m_Size] = 0;
 
+
+	int pushPos = (m_Size - 1);
+	if (c != '\0')
+	{
+		m_Buffer[pushPos] = c;
+		m_Buffer[m_Size] = 0;
+	}
 
 }
 
