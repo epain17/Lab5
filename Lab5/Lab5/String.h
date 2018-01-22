@@ -19,15 +19,15 @@ public:
 
 	char& at(size_t i);
 
-	char operator[](int i) const;
+	const char& operator[](size_t i) const;
 
-	char& operator[](int i);
+	char& operator[](size_t i);
 
 	const char* data() const;
 
 	int size() const;
 
-	void reserve(size_t);
+	void reserve(size_t i);
 
 	int capacity() const;
 

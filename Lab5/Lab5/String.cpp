@@ -6,9 +6,9 @@
 
 
 String::String() :
-	m_Buffer(""), m_Size(0), m_Cap(10)
+	m_Buffer(new char[11]), m_Size(0), m_Cap(10)
 {
-
+	m_Buffer[m_Size] = 0;
 
 
 }
@@ -87,12 +87,12 @@ char& String::at(size_t i)
 	}
 }
 
-char String::operator[](int i) const
+const char& String::operator[](size_t i) const
 {
 	return m_Buffer[i];
 }
 
-char& String::operator[](int i)
+char& String::operator[](size_t i)
 {
 	return m_Buffer[i];
 }
@@ -108,8 +108,17 @@ int String::size() const
 	return m_Size;
 }
 
-void String::reserve(size_t)
+void String::reserve(size_t i)
 {
+	m_Cap = i;
+	char* temp = new char[m_Cap + 1];
+	memcpy(temp, m_Buffer, m_Cap);
+	delete[] m_Buffer;
+	m_Buffer = new char[m_Cap + 1];
+	memcpy(m_Buffer, temp, m_Cap);
+	delete[] temp;
+
+	m_Buffer[m_Size] = 0;
 
 }
 
@@ -148,11 +157,10 @@ void String::push_back(const char c)
 
 
 	int pushPos = (m_Size - 1);
-	if (c != '\0')
-	{
-		m_Buffer[pushPos] = c;
-		m_Buffer[m_Size] = 0;
-	}
+
+	m_Buffer[pushPos] = c;
+	m_Buffer[m_Size] = 0;
+
 
 }
 

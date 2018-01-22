@@ -153,7 +153,7 @@ void TestFörGodkäntString() {
 	const String sc(str);
 	assert(sc[1] == 'y');
 
-	//assert(std::is_const<std::remove_reference< decltype(sc[1])>::type>::value); //Kolla att det blir en const resultat av indexering
+	assert(std::is_const<std::remove_reference< decltype(sc[1])>::type>::value); //Kolla att det blir en const resultat av indexering
 
 																				 //-	push_back(char c) lägger till ett tecken sist.
 	str = "bar";
