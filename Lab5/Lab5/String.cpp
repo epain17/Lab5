@@ -4,7 +4,6 @@
 #include<iostream>
 
 
-
 String::String() :
 	m_Buffer(new char[11]), m_Size(0), m_Cap(10)
 {
@@ -95,10 +94,29 @@ char& String::operator[](size_t i)
 	return m_Buffer[i];
 }
 
-
 const char* String::data() const
 {
 	return m_Buffer;
+}
+
+const char* String::begin() const 
+{
+	return m_Buffer;
+}
+
+const char* String::end() const
+{
+	return m_Buffer + m_Size;
+}
+
+const char* String::rbegin() const
+{
+	return m_Buffer + m_Size - 1;
+}
+
+const char* String::rend() const
+{
+	return m_Buffer + m_Size - 1;
 }
 
 int String::size() const

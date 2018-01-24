@@ -25,6 +25,14 @@ public:
 
 	const char* data() const;
 
+	const char* begin() const;
+
+	const char* end() const;
+
+	const char* rbegin() const;
+
+	const char* rend() const;
+
 	int size() const;
 
 	void reserve(size_t i);
