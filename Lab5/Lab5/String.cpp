@@ -9,8 +9,6 @@ String::String() :
 	m_Buffer(new char[11]), m_Size(0), m_Cap(10)
 {
 	m_Buffer[m_Size] = 0;
-
-
 }
 
 String::~String()
@@ -144,7 +142,7 @@ void String::push_back(const char c)
 	m_Size++;
 	if (m_Size > m_Cap)
 	{
-		m_Cap = m_Size + 2;
+		m_Cap = m_Size * 1.2;
 		char* temp = new char[m_Cap + 1];
 		memcpy(temp, m_Buffer, m_Cap);
 		delete[] m_Buffer;
@@ -154,10 +152,7 @@ void String::push_back(const char c)
 
 	}
 
-
-
 	int pushPos = (m_Size - 1);
-
 	m_Buffer[pushPos] = c;
 	m_Buffer[m_Size] = 0;
 
@@ -166,14 +161,19 @@ void String::push_back(const char c)
 
 void String::resize(size_t n)
 {
-	m_Size = n;
-	if (m_Size > m_Cap)
+	if (n > m_Cap)
 	{
-		m_Cap = m_Size + 2;
-		char* temp = new char[m_Cap + 1];
+		m_Cap = n *1.2;
+		char *temp = new char[m_Cap + 1];
 		memcpy(temp, m_Buffer, m_Cap);
+		for (size_t i = m_Size; i < m_Cap; i++)
+		{
+			temp[i] = char();
+
+		}
 		delete[] m_Buffer;
 		m_Buffer = new char[m_Cap + 1];
+		m_Size = n;
 		memcpy(m_Buffer, temp, m_Cap);
 		delete[] temp;
 	}
