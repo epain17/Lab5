@@ -1,9 +1,10 @@
 #include "stdafx.h"
 
+
 #include "VG.h"
 
 #include "String.h"
-#include "StringItt.hpp"
+#include "StringItt.cpp"
 
 //#include "ForwardSort.h"
 //#include "HjälpProgram.h"

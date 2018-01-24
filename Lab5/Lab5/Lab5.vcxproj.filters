@@ -36,10 +36,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Desktop\StringIttTest.h">
+    <ClInclude Include="StringItt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringItt.h">
+    <ClInclude Include="StringIttTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClCompile Include="String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\StringIttTest.cpp">
+    <ClCompile Include="StringIttTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringItt.hpp">
+    <ClCompile Include="StringItt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
