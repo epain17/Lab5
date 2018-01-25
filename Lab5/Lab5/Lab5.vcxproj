@@ -145,17 +145,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StringItt.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="StringItt.h" />
     <ClInclude Include="StringIttTest.h" />
     <ClInclude Include="StringTest.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="VG.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="StringItt.cpp" />
     <ClCompile Include="Lab5.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

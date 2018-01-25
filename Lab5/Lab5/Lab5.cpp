@@ -18,6 +18,9 @@
 
 //#include "UnsignedTest.h"
 #include "String.h"
+#include "StringIttTest.h"
+#include"StringItt.h"
+
 
 #include <iostream>
 using std::cout;
@@ -27,7 +30,6 @@ using std::cin;
 
 //#include <utility>
 #include"StringTest.h"
-
 //#include <iostream>
 //#include <vector>
 

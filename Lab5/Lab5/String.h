@@ -1,9 +1,10 @@
 #pragma once
+
 class String
 {
 
-
 public:
+
 	char* m_Buffer; 
 	int m_Size;
 	int m_Cap;

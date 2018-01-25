@@ -4,6 +4,7 @@
 #include<iostream>
 
 
+
 String::String() :
 	m_Buffer(new char[11]), m_Size(0), m_Cap(10)
 {

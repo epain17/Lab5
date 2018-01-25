@@ -36,10 +36,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringItt.h">
+    <ClInclude Include="StringIttTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringIttTest.h">
+    <ClInclude Include="StringItt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,9 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StringIttTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StringItt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

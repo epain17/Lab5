@@ -4,7 +4,7 @@
 #include "VG.h"
 
 #include "String.h"
-#include "StringItt.cpp"
+#include "StringItt.h"
 
 //#include "ForwardSort.h"
 //#include "HjälpProgram.h"
