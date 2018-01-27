@@ -6,7 +6,7 @@
 #include <cassert>
 
 template <typename T>
-class StringItt :public std::iterator<std::random_access_iterator_tag, T>
+class StringItt :public std::iterator<std::forward_iterator_tag, T>
 {
 public:
 	typedef int size_type;
@@ -18,7 +18,7 @@ public:
 		typedef T valueType;
 		typedef T& reference;
 		typedef T* pointer;
-		typedef std::random_access_iterator_tag iteratorCatrgory;
+		typedef std::forward_iterator_tag iteratorCatrgory;
 		typedef int differntType;
 		bool invariant() { return ptr != nullptr; }
 

@@ -55,7 +55,7 @@ void TestRevIttInAlg() {
     auto e = std::rend(v);
 
     std::random_shuffle(b, e);
-
+	
     cout << v << endl;
     std::stable_sort(b, e);
 

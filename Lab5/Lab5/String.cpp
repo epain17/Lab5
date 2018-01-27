@@ -100,25 +100,25 @@ const char* String::data() const
 	return m_Buffer;
 }
 
-const char* String::begin() const 
-{
-	return m_Buffer;
-}
-
-const char* String::end() const
-{
-	return m_Buffer + m_Size;
-}
-
-const char* String::rbegin() const
-{
-	return m_Buffer + m_Size - 1;
-}
-
-const char* String::rend() const
-{
-	return m_Buffer + m_Size - 1;
-}
+//const char* String::begin() const 
+//{
+//	return m_Buffer;
+//}
+//
+//const char* String::end() const
+//{
+//	return m_Buffer + m_Size;
+//}
+//
+//const char* String::rbegin() const
+//{
+//	return m_Buffer + m_Size - 1;
+//}
+//
+//const char* String::rend() const
+//{
+//	return m_Buffer + m_Size - 1;
+//}
 
 int String::size() const
 {
@@ -214,6 +214,15 @@ String& String::operator+=(const String& rhs)
 
 	m_Size = strlen(m_Buffer);
 	return *this;
+}
+
+std::ostream& operator<<(std::ostream& out, const String& ptr)
+{
+	for (size_t i = 0; i < ptr.m_Size; i++)
+	{
+		out << ptr.m_Buffer[i];
+	}
+	return out;
 }
 
 bool operator!=(const String& lhs, const String& rhs)
