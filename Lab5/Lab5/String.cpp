@@ -2,6 +2,9 @@
 #include "String.h"
 #include <string>
 #include<iostream>
+#include <assert.h>
+#include <memory.h>
+
 
 
 
@@ -54,6 +57,8 @@ String& String::operator=(const String& rhs)
 		m_Size = rhs.m_Size;
 		m_Cap = rhs.m_Cap;
 		m_Buffer[m_Size] = 0;
+		assert(Invariant());
+
 	}
 
 	return *this;
@@ -100,25 +105,16 @@ const char* String::data() const
 	return m_Buffer;
 }
 
-//const char* String::begin() const 
-//{
-//	return m_Buffer;
-//}
-//
-//const char* String::end() const
-//{
-//	return m_Buffer + m_Size;
-//}
-//
-//const char* String::rbegin() const
-//{
-//	return m_Buffer + m_Size - 1;
-//}
-//
-//const char* String::rend() const
-//{
-//	return m_Buffer + m_Size - 1;
-//}
+
+bool String::Invariant()
+{
+	if (this->m_Buffer[this->m_Size] == '\0')
+	{
+		return true;
+	}
+	else
+		return false;
+}
 
 int String::size() const
 {
@@ -127,6 +123,8 @@ int String::size() const
 
 void String::reserve(size_t i)
 {
+	assert(Invariant());
+
 	m_Cap = i;
 	char* temp = new char[m_Cap + 1];
 	memcpy(temp, m_Buffer, m_Cap);
@@ -136,6 +134,7 @@ void String::reserve(size_t i)
 	delete[] temp;
 
 	m_Buffer[m_Size] = 0;
+	assert(Invariant());
 
 }
 
@@ -146,6 +145,8 @@ int String::capacity() const
 
 void String::shrink_to_fit()
 {
+	assert(Invariant());
+
 	m_Cap = m_Size;
 	char* temp = new char[m_Cap + 1];
 	memcpy(temp, m_Buffer, m_Cap);
@@ -154,6 +155,9 @@ void String::shrink_to_fit()
 	memcpy(m_Buffer, temp, m_Cap);
 	delete[] temp;
 	m_Buffer[m_Size] = 0;
+
+	assert(Invariant());
+
 }
 
 void String::push_back(const char c)
@@ -168,13 +172,12 @@ void String::push_back(const char c)
 		m_Buffer = new char[m_Cap + 1];
 		memcpy(m_Buffer, temp, m_Cap);
 		delete[] temp;
-
 	}
 
 	int pushPos = (m_Size - 1);
 	m_Buffer[pushPos] = c;
 	m_Buffer[m_Size] = 0;
-
+	assert(Invariant());
 
 }
 
@@ -197,6 +200,8 @@ void String::resize(size_t n)
 		delete[] temp;
 	}
 	m_Buffer[m_Size] = 0;
+	assert(Invariant());
+
 }
 
 String& String::operator+=(const String& rhs)
@@ -213,6 +218,8 @@ String& String::operator+=(const String& rhs)
 	}
 
 	m_Size = strlen(m_Buffer);
+	assert(Invariant());
+
 	return *this;
 }
 
