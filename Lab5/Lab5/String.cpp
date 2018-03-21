@@ -26,7 +26,7 @@ String::String(const char* cstr)
 	m_Buffer = new char[m_Cap + 1];
 	memcpy(m_Buffer, cstr, m_Cap);
 	m_Buffer[m_Size] = 0;
-
+	assert(Invariant());
 
 }
 
@@ -78,7 +78,7 @@ String:: operator bool()
 
 char& String::at(size_t i)
 {
-	if (i < 0 || i > m_Cap)
+	/*if (i < 0 || i > m_Cap)
 	{
 		std::cout << "Out of bounds" << std::endl;
 		exit(0);
@@ -87,7 +87,19 @@ char& String::at(size_t i)
 	else
 	{
 		return m_Buffer[i];
+	}*/
+	try
+	{
+		if (i > m_Cap)
+			throw 1;
+		else
+			return m_Buffer[i];
 	}
+	catch (int x)
+	{
+		std::cout << "out_of_range, ERROR NUMBER: " + x << std::endl;
+	}
+	return m_Buffer[i];
 }
 
 const char& String::operator[](size_t i) const
@@ -108,7 +120,7 @@ const char* String::data() const
 
 bool String::Invariant()
 {
-	if (this->m_Buffer[this->m_Size] == '\0')
+	if (this->m_Buffer[this->m_Size] == '\0' && m_Cap >= m_Size && m_Cap > 0 && m_Size >= 0)
 	{
 		return true;
 	}
@@ -151,9 +163,7 @@ void String::shrink_to_fit()
 	char* temp = new char[m_Cap + 1];
 	memcpy(temp, m_Buffer, m_Cap);
 	delete[] m_Buffer;
-	m_Buffer = new char[m_Cap + 1];
-	memcpy(m_Buffer, temp, m_Cap);
-	delete[] temp;
+	m_Buffer = temp;
 	m_Buffer[m_Size] = 0;
 
 	assert(Invariant());
@@ -162,6 +172,7 @@ void String::shrink_to_fit()
 
 void String::push_back(const char c)
 {
+	assert(Invariant());
 	m_Size++;
 	if (m_Size > m_Cap)
 	{
@@ -169,8 +180,8 @@ void String::push_back(const char c)
 		char* temp = new char[m_Cap + 1];
 		memcpy(temp, m_Buffer, m_Cap);
 		delete[] m_Buffer;
-		m_Buffer = new char[m_Cap + 1];
-		memcpy(m_Buffer, temp, m_Cap);
+		m_Buffer = temp;
+		temp = nullptr;
 		delete[] temp;
 	}
 
@@ -183,6 +194,7 @@ void String::push_back(const char c)
 
 void String::resize(size_t n)
 {
+	assert(Invariant());
 	if (n > m_Cap)
 	{
 		m_Cap = n *1.2;
