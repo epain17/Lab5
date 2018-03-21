@@ -5,162 +5,35 @@
 #include <iterator>
 #include <cassert>
 
-template <typename T>
-class StringItt :public std::iterator<std::random_access_iterator_tag, T>
-{
+template <typename T, int dir>
+class StringIterator : public std::iterator<std::random_access_iterator_tag, T> {
 public:
-	typedef int size_type;
+	T* _ptr;
+	int direction;
+	virtual bool invariant() { return _ptr != nullptr; }
 
-	class iterator
-	{
-	public:
-		typedef iterator selfType;
-		typedef T valueType;
-		typedef T& reference;
-		typedef T* pointer;
-		typedef std::random_access_iterator_tag iteratorCatrgory;
-		typedef int difference_type;
-		bool invariant() { return ptr != nullptr; }
-
-		iterator() = default;
-		iterator(pointer ptr) : ptr(ptr) {}
-		iterator(iterator & rhs) {}
-		iterator& operator=(const iterator& rhs)
-		{
-			ptr = rhs.ptr;
-			return *this;
-		}
-		reference operator*() { return *ptr; }
-		pointer operator->() { return ptr; }
-		bool operator==(const selfType& rhs) { return ptr == rhs.ptr; }
-		bool operator!=(const selfType& rhs) { return ptr != rhs.ptr; }
-		reference operator[](int i) { return *(ptr + i); } //from ptr go i step forward.
-		selfType operator+(const int& rhs)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			return iterator(temp += rhs);
-		}
-		//pre-incremental
-		selfType operator++()
-		{
-			assert(invariant());
-			++ptr;
-			return iterator(ptr);
-		}
-		//post-incremental
-		selfType operator++(int)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			++ptr;
-			return iterator(temp);
-		}
-		selfType operator--(int)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			--ptr;
-			return iterator(temp);
-		}
-		pointer operator--()
-		{
-			assert(invariant());
-			--ptr;
-			return iterator(ptr);
-		}
-
-	private:
-		pointer ptr;
-	};
-
-	class reverse_iterator
-	{
-	public:
-		typedef reverse_iterator selfType; //just so we dont have to write iterator all the time 
-		typedef T valueType;
-		typedef T& reference;
-		typedef T* pointer;
-		typedef std::random_access_iterator_tag iteratorCatrgory;
-		typedef int difference_type;
-		bool invariant() { return ptr != nullptr; }
-
-		reverse_iterator() = default;
-		reverse_iterator(pointer ptr) : ptr(ptr) {}
-		reverse_iterator(reverse_iterator & rhs) {}
-		reverse_iterator& operator=(const reverse_iterator& rhs)
-		{
-			assert(invariant());
-			ptr = rhs.ptr;
-			return *this;
-		}
-		reference operator[](int i) { return *(ptr - i); } //from ptr go i step forward.
-		selfType operator+(const int& rhs)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			return reverse_iterator(temp -= rhs);
-		}
-		//pre-incremental
-		selfType operator++()
-		{
-			assert(invariant());
-			--ptr;
-			return reverse_iterator(ptr);
-		}
-		//post-incremental
-		selfType operator++(int)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			--ptr;
-			return reverse_iterator(temp);
-		}
-		selfType operator--(int)
-		{
-			assert(invariant());
-			pointer temp = ptr;
-			++ptr;
-			return reverse_iterator(temp);
-		}
-		pointer operator--()
-		{
-			assert(invariant());
-			++ptr;
-			return reverse_iterator(ptr);
-		}
-		reference operator*() { return *ptr; }
-		pointer operator->() { return ptr; }
-		bool operator==(const selfType& rhs) { return ptr == rhs.ptr; }
-		bool operator!=(const selfType& rhs) { return ptr != rhs.ptr; }
-
-	private:
-		pointer ptr;
-	};
-
-	StringItt(size_type size) : size(size) { data = new T[size]; }
-	StringItt(StringItt& rhs) {}
-	StringItt& operatror = (const reverse_iterator& rhs) {}
-	size_type size() { return size; }
-	T& opearetor[](size_type index)
-	{
-		assert(index > size);
-		return data[index];
+	// Constructors
+	~StringIterator() { _ptr = nullptr; }
+	explicit StringIterator() : direction(dir) {};
+	explicit StringIterator(T* ptr) :
+		_ptr(ptr), direction(dir) {
+		assert(invariant());
 	}
-	const T& operator[](size_type index)
-	{
-		assert(index > size);
-		return data[index];
-	}
-	Iterator begin()
-	{
-		return Iterator(data);
-	}
-	Iterator end()
-	{
-		return Iterator(data + size);
-	}
-private:
-	size_type size;
-	T* data;
+
+	// Operators
+	virtual bool operator==(const StringIterator& rhs) { assert(invariant()); return _ptr == rhs._ptr; }
+	virtual bool operator!=(const StringIterator& rhs) { assert(invariant()); return _ptr != rhs._ptr; }
+	virtual T& operator*() { assert(invariant()); return *_ptr; }
+	virtual T* operator->() { assert(invariant()); return _ptr; }
+	virtual T& operator[](int i) { assert(invariant()); return *(_ptr + (i * direction)); }
+
+	virtual StringIterator operator=(StringIterator rhs) { _ptr = rhs._ptr; assert(invariant()); return *this; }
+	virtual StringIterator operator+(int i) { assert(invariant()); return StringIterator(_ptr + (i * direction)); }
+	virtual StringIterator operator++(int) { assert(invariant()); StringIterator i = *this; _ptr += direction; return i; }
+	virtual StringIterator operator++() { assert(invariant()); _ptr += direction; return *this; }
+
+	virtual bool operator<(const StringIterator& rhs) { assert(invariant()); return _ptr < rhs._ptr; }
+	virtual int operator-(StringIterator rhs) { assert(invariant()); int i = *_ptr - *rhs._ptr; return i; }
+	virtual int operator+=(int rhs) { assert(invariant()); int i = *_ptr + rhs; return i; }
+	virtual StringIterator operator--() { assert(invariant()); _ptr -= direction; return *this; }
 };

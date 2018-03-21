@@ -10,15 +10,16 @@ class String
 
 public:
 
-
+	// Iterator
+	using iterator = StringIterator<char, 1>;
+	using reverse_iterator = StringIterator<char, -1>; // reverse
 	
-	typedef StringItt<char>::iterator iterator;
-	typedef StringItt<char>::reverse_iterator reverse_iterator;
-
 	iterator begin() { return iterator(m_Buffer); }
-	iterator end() { return iterator(m_Buffer+m_Cap); }
-	reverse_iterator rbegin() { return reverse_iterator(&m_Buffer[m_Cap-1]); }
-	reverse_iterator rend() { return reverse_iterator(&m_Buffer[0]-1); }
+	iterator end() { return iterator(m_Buffer + m_Size); }
+	reverse_iterator rbegin() { return reverse_iterator(m_Buffer + m_Size - 1); }
+	reverse_iterator rend() { return reverse_iterator(m_Buffer-1); }
+	
+	
 	
 	String();
 

@@ -270,13 +270,13 @@ void TestFörVälGodkäntString() {
 }
 
 #endif //VG
-
-int main()
-{
-	std::string hej = "hej";
-	hej.at(2);
-
-	TestFörGodkäntString();
-    return 0;
-}
+//int main()
+//{
+//	std::string hej = "hej";
+//	hej.at(2);
+//
+//	TestFörGodkäntString();
+//    return 0;
+//}
+//
 
