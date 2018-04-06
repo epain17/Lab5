@@ -20,7 +20,7 @@ public:
 		assert(invariant());
 	}
 
-	// Operators
+	// Operators Gör om så att *ptr inte används, vill peka på platsen inte innehållet!
 	virtual bool operator==(const StringIterator& rhs) { assert(invariant()); return _ptr == rhs._ptr; }
 	virtual bool operator!=(const StringIterator& rhs) { assert(invariant()); return _ptr != rhs._ptr; }
 	virtual T& operator*() { assert(invariant()); return *_ptr; }
@@ -33,7 +33,7 @@ public:
 	virtual StringIterator operator++() { assert(invariant()); _ptr += direction; return *this; }
 
 	virtual bool operator<(const StringIterator& rhs) { assert(invariant()); return _ptr < rhs._ptr; }
-	virtual int operator-(StringIterator rhs) { assert(invariant()); int i = *_ptr - *rhs._ptr; return i; }
-	virtual int operator+=(int rhs) { assert(invariant()); int i = *_ptr + rhs; return i; }
+	virtual int operator-(StringIterator rhs) { assert(invariant()); int i = _ptr - rhs._ptr; return i; }
+	virtual int operator+=(int rhs) { assert(invariant()); int i = _ptr + rhs; return i; }
 	virtual StringIterator operator--() { assert(invariant()); _ptr -= direction; return *this; }
 };

@@ -49,7 +49,8 @@ void TestIttInAlg() {
 }
 
 void TestRevIttInAlg() {
-
+	StringIterator<std::string, 1> x, y;
+	x - y;
     static const int N = 26;
     String v;
     v.reserve(N);
@@ -181,8 +182,8 @@ void TestFörGodkäntItt() {
 #endif Itt
 int main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//TestIttInAlg();
-	//TestRevIttInAlg();
+	TestIttInAlg();
+	TestRevIttInAlg();
 	TestFörGodkäntItt();
 	std::cin.get();
 	return 0;
